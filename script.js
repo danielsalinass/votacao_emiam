@@ -59,6 +59,9 @@ function confirmVote() {
 
             voteSound.play();
             alert(`✅ Voto confirmado para ${selected.value}!`);
+
+            // **Remover seleção após votar**
+            selected.checked = false;
         }
     } else {
         errorSound.play();
