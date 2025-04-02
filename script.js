@@ -61,7 +61,9 @@ function confirmVote() {
             alert(`✅ Voto confirmado para ${selected.value}!`);
 
             // **Remover seleção após votar**
-            selected.checked = false;
+            setTimeout(() => {
+                selected.checked = false; // Desmarca o radio button
+            }, 100); 
         }
     } else {
         errorSound.play();
