@@ -1,10 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     const votos = JSON.parse(localStorage.getItem('votos'));
     const vencedorDiv = document.getElementById("vencedor");
+    const imagemVencedorDiv = document.getElementById("imagemVencedor");
+
+    // Dados das chapas com imagens
+    const chapas = [
+        { nome: "Chapa 1", imagem: "chapa1.png" },
+        { nome: "Chapa 2", imagem: "chapa2.png" },
+        { nome: "Chapa 3", imagem: "chapa3.png" }
+    ];
 
     // Verifica se existem votos armazenados
     if (!votos || Object.values(votos).every(v => v === 0)) {
         vencedorDiv.innerHTML = "<h2>❌ Nenhum voto registrado.</h2>";
+        imagemVencedorDiv.innerHTML = "";
         return;
     }
 
@@ -18,6 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         vencedorDiv.innerHTML = `<h2>⚖️ Houve um empate entre as chapas <strong>${vencedores.join(" e ")}</strong> com ${maxVotos} ${maxVotos === 1 ? "voto" : "votos"} cada.</h2>`;
     }
+
+    // Exibir imagens das chapas vencedoras
+    imagemVencedorDiv.innerHTML = "";
+    vencedores.forEach(chapaNome => {
+        const chapa = chapas.find(c => c.nome === chapaNome);
+        if (chapa) {
+            const img = document.createElement("img");
+            img.src = chapa.imagem;
+            img.alt = `Imagem da ${chapaNome}`;
+            img.classList.add("imagem-vencedor");
+            imagemVencedorDiv.appendChild(img);
+        }
+    });
 
     // Exibir gráfico
     renderChart(votos);
