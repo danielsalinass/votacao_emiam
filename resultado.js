@@ -1,17 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const vencedor = JSON.parse(localStorage.getItem('vencedor'));
-    const votos = JSON.parse(localStorage.getItem('votos'));
-    const vencedorDiv = document.getElementById("vencedor");
+    const votos = JSON.parse(localStorage.getItem('votos')) || {};
+    const vencedores = JSON.parse(localStorage.getItem('vencedor')) || [];
+    const resultadoDiv = document.getElementById("resultado");
 
-    if (vencedor && vencedor.length > 0) {
-        vencedorDiv.innerHTML = `
-            <h2>🎉 O vencedor ${vencedor.length > 1 ? "foram" : "foi"} ${vencedor.join(" e ")}!</h2>
-        `;
+    if (vencedores.length > 0) {
+        resultadoDiv.innerHTML = `<h2>🎉 Vencedores: ${vencedores.join(", ")}</h2>`;
         startFireworks();
         renderChart(votos);
     } else {
-        vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada.</p>`;
+        resultadoDiv.innerHTML = "<h2>❌ Nenhum vencedor definido.</h2>";
     }
+
+    let votosHTML = "<h3>📊 Total de votos:</h3><ul>";
+    for (let chapa in votos) {
+        votosHTML += `<li><strong>${chapa}:</strong> ${votos[chapa]} votos</li>`;
+    }
+    votosHTML += "</ul>";
+    resultadoDiv.innerHTML += votosHTML;
 });
 
 function renderChart(votos) {
@@ -33,6 +38,5 @@ function renderChart(votos) {
 }
 
 function startFireworks() {
-    const fireworks = document.getElementById('fireworks');
-    fireworks.innerHTML = "🔥✨💥";
+    document.body.innerHTML += `<div class="fireworks">🎆🎇✨</div>`;
 }
