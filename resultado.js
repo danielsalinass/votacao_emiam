@@ -77,7 +77,8 @@ function renderChart(votos) {
 datasets: [{
     label: 'Quantidade de Votos',
     data: Object.values(votos),
-    borderColor: '#000000',
+    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
+    borderColor: '#ffffff',
     borderWidth: 1
 }]
 
