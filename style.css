@@ -71,6 +71,20 @@ button:hover {
     background: #218838;
 }
 
+/* Espaçamento no botão "Confirmar Voto" */
+.botao-confirmar {
+    margin-top: 20px; /* Adiciona espaçamento */
+    display: block; /* Garante que fique abaixo das chapas */
+}
+
+/* Mensagem de incentivo ao voto consciente */
+.mensagem-voto {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f8d210;
+    margin-bottom: 15px;
+}
+
 /* Resultado */
 #vencedor {
     font-size: 22px;
