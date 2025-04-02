@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,23 +13,6 @@
         <button onclick="window.location.href='index.html'">Voltar</button>
     </div>
 
-    <script>
-        const votos = JSON.parse(localStorage.getItem('votos')) || {};
-        const vencedores = JSON.parse(localStorage.getItem('vencedor')) || [];
-        const resultadoDiv = document.getElementById("resultado");
-
-        if (vencedores.length > 0) {
-            resultadoDiv.innerHTML = `<h2>🎉 Vencedores: ${vencedores.join(", ")}</h2>`;
-        } else {
-            resultadoDiv.innerHTML = "<h2>❌ Nenhum vencedor definido.</h2>";
-        }
-
-        let votosHTML = "<h3>📊 Total de votos:</h3><ul>";
-        for (let chapa in votos) {
-            votosHTML += `<li><strong>${chapa}:</strong> ${votos[chapa]} votos</li>`;
-        }
-        votosHTML += "</ul>";
-        resultadoDiv.innerHTML += votosHTML;
-    </script>
+    <script src="resultado.js"></script>
 </body>
 </html>
