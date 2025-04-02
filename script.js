@@ -6,11 +6,11 @@ const chapas = [
 
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
 let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
-const listaCandidatos = document.getElementById("listaCandidatos");
 
-// Áudio da urna eletrônica
+const listaCandidatos = document.getElementById("listaCandidatos");
 const voteSound = new Audio("urna.mp3");
 
+// Gerar lista de chapas dinamicamente
 chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
@@ -35,7 +35,7 @@ chapas.forEach(chapa => {
 
 function confirmVote() {
     if (votacaoEncerrada) {
-        alert('A votação foi encerrada.');
+        alert('⚠️ A votação foi encerrada. Não é possível votar.');
         return;
     }
 
@@ -56,4 +56,16 @@ function confirmVote() {
     } else {
         alert('⚠️ Selecione uma chapa antes de votar.');
     }
+}
+
+function endVote() {
+    votacaoEncerrada = true;
+    localStorage.setItem('votacaoEncerrada', JSON.stringify(true));
+    alert("🔒 A votação foi encerrada! Nenhum novo voto será aceito.");
+}
+
+function resetVote() {
+    localStorage.clear();
+    alert("🔄 A votação foi reiniciada!");
+    location.reload();
 }
