@@ -4,14 +4,19 @@ const chapas = [
     { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
 ];
 
+// Carregar votos do localStorage
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
 let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
+
 const listaCandidatos = document.getElementById("listaCandidatos");
-const voteSound = new Audio("vote.mp3");
-const errorSound = new Audio("error.mp3");
-const winnerSound = new Audio("winner.mp3");
 const body = document.body;
 
+// Caminho correto para os áudios hospedados no GitHub Pages
+const voteSound = new Audio("https://danielsalinass.github.io/votacao_emiam/urna.mp3");
+const errorSound = new Audio("https://danielsalinass.github.io/votacao_emiam/error.mp3");
+const winnerSound = new Audio("https://danielsalinass.github.io/votacao_emiam/winner.mp3");
+
+// Gerar lista de chapas dinamicamente
 chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
@@ -51,23 +56,27 @@ function confirmVote() {
             localStorage.setItem('votos', JSON.stringify(votos));
             document.getElementById(`contagem-${selected.value}`).innerText = votos[selected.value];
 
-            // Animação no contador de votos
-            document.getElementById(`contagem-${selected.value}`).style.transform = "scale(1.2)";
+            // Efeito visual no contador de votos
+            const contador = document.getElementById(`contagem-${selected.value}`);
+            contador.style.transform = "scale(1.2)";
             setTimeout(() => {
-                document.getElementById(`contagem-${selected.value}`).style.transform = "scale(1)";
+                contador.style.transform = "scale(1)";
             }, 500);
 
+            // **Tocar o som da urna eletrônica**
+            voteSound.currentTime = 0;  // Reinicia o som caso já tenha sido tocado antes
             voteSound.play();
+
             alert(`✅ Voto confirmado para ${selected.value}!`);
 
             // **Remover seleção após votar**
             setTimeout(() => {
-                selected.checked = false; // Desmarca o radio button
-            }, 100); 
+                selected.checked = false;
+            }, 200);
         }
     } else {
         errorSound.play();
-        alert('Selecione uma chapa antes de votar.');
+        alert('⚠️ Selecione uma chapa antes de votar.');
     }
 }
 
@@ -75,7 +84,10 @@ function showWinner() {
     let maxVotos = Math.max(...Object.values(votos));
     let vencedores = Object.keys(votos).filter(chapa => votos[chapa] === maxVotos);
     localStorage.setItem('vencedor', JSON.stringify(vencedores));
+
+    // **Tocar som ao exibir vencedor**
     winnerSound.play();
+
     window.location.href = "resultado.html";
 }
 
@@ -84,7 +96,7 @@ function endVote() {
     localStorage.setItem('votacaoEncerrada', JSON.stringify(votacaoEncerrada));
     alert('🔒 A votação foi encerrada.');
 
-    // Modo escuro ao encerrar
+    // **Ativar modo escuro ao encerrar a votação**
     body.style.background = "black";
     body.style.color = "cyan";
 }
