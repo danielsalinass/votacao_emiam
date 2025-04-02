@@ -53,7 +53,7 @@ function confirmVote() {
             localStorage.setItem('votos', JSON.stringify(votos));
 
             // **Tocar o som da urna eletrônica**
-            voteSound.currentTime = 0;  // Reinicia o som caso já tenha sido tocado antes
+            voteSound.currentTime = 0;
             voteSound.play();
 
             alert(`✅ Voto confirmado para ${selected.value}!`);
