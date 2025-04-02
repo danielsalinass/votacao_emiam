@@ -11,8 +11,9 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
     height: 100vh; /* Ocupa toda a altura da tela */
     padding: 20px;
 }
@@ -21,16 +22,22 @@ body {
 .container {
     width: 100%;
     max-width: 900px;
-    padding: 20px;
+    padding: 30px;
     background: #222;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Título */
+/* Título e subtítulo */
 h1 {
     color: #00c3ff;
-    font-size: 26px;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #bbb;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -72,15 +79,15 @@ h1 {
 }
 
 .chapa-info img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     border: 3px solid white;
 }
 
 /* Nome dos candidatos */
 .chapa-info p {
-    font-size: 16px;
+    font-size: 18px;
     margin-top: 5px;
 }
 
