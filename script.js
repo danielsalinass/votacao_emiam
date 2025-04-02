@@ -41,10 +41,13 @@ function confirmVote() {
 
     const selected = document.querySelector('input[name="chapa"]:checked');
     if (selected) {
-        votos[selected.value]++;
-        localStorage.setItem('votos', JSON.stringify(votos));
-        voteSound.play();
-        alert(`✅ Voto confirmado para ${selected.value}!`);
+        let confirmation = confirm(`Tem certeza que deseja votar na ${selected.value}?`);
+        if (confirmation) {
+            votos[selected.value]++;
+            localStorage.setItem('votos', JSON.stringify(votos));
+            voteSound.play();
+            alert(`✅ Voto confirmado para ${selected.value}!`);
+        }
     } else {
         alert('Selecione uma chapa antes de votar.');
     }
