@@ -71,6 +71,44 @@ button:hover {
     background: #218838;
 }
 
+/* Resultado */
+#vencedor {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Estilizando o gráfico */
+canvas {
+    max-width: 600px;
+    width: 100%;
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Botões no resultado */
+.botoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #218838;
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
     .container {
