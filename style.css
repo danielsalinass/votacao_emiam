@@ -1,106 +1,110 @@
-/* Importando fonte moderna */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+/* Reset básico */
+body, h1, h2, h3, p, button {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
 body {
-    font-family: 'Orbitron', sans-serif;
     text-align: center;
-    background: #121212; /* Fundo escuro profissional */
-    color: #ffffff;
-    margin: 50px;
+    background-color: #f4f4f4;
+    padding: 20px;
 }
 
-/* Container principal */
+/* Contêiner principal */
 .container {
-    max-width: 700px;
+    max-width: 800px;
     margin: auto;
-    padding: 30px;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Títulos */
+/* Estilo do título */
 h1 {
-    color: #0ff; /* Azul Neon */
-    font-size: 36px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-h2 {
-    color: #0ff;
+    color: #333;
     font-size: 28px;
+    margin-bottom: 20px;
 }
 
-/* Cartões das chapas */
-.candidato {
+/* Disposição das chapas */
+.lista-chapas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Cartão de cada chapa */
+.chapa-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 15px 0;
+    width: 100%;
+    max-width: 600px;
     padding: 15px;
-    background: #1e1e1e;
+    background: linear-gradient(to right, #007bff, #00c3ff);
     border-radius: 12px;
-    box-shadow: inset 2px 2px 5px #0ff, inset -2px -2px 5px #004d4d;
-    transition: 0.3s;
+    color: white;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Efeito ao passar o mouse */
-.candidato:hover {
+.chapa-card:hover {
     transform: scale(1.05);
 }
 
-/* Estilo das imagens dos representantes e vices */
-.candidato img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 3px solid #0ff;
+/* Área das imagens */
+.chapa-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-right: 15px;
 }
 
-/* Botões */
+/* Imagens dos candidatos */
+.chapa-info img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+/* Nome dos candidatos */
+.chapa-info p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Área do botão de seleção */
+.chapa-selecao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Input radio personalizado */
+.chapa-selecao input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Botão de votar */
 button {
     margin-top: 20px;
-    padding: 15px 25px;
+    padding: 12px 20px;
     font-size: 18px;
     cursor: pointer;
-    background: #0ff;
-    color: #121212;
+    background-color: #28a745;
+    color: white;
     border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    transition: 0.3s;
-    text-transform: uppercase;
+    border-radius: 8px;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background: #00cccc;
+    background-color: #218838;
 }
-
-/* Contador de votos com efeito digital */
-.contador-votos {
-    font-size: 16px;
-    color: #0ff;
-    font-weight: bold;
-    text-shadow: 0 0 8px #0ff;
-}
-
-/* Animação para quando o voto for confirmado */
-@keyframes votoAnimado {
-    0% { transform: scale(1); color: #ffffff; }
-    50% { transform: scale(1.2); color: #0ff; }
-    100% { transform: scale(1); color: #ffffff; }
-}
-
-.contador-votos span {
-    display: inline-block;
-    transition: 0.3s;
-}
-
-/* Ajuste do modo escuro ao encerrar votação */
-.encerrado {
-    background: black;
-    color: cyan;
-}
-
