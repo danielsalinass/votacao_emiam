@@ -1,3 +1,4 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +17,7 @@ body {
     padding: 20px;
 }
 
+/* Contêiner principal */
 .container {
     max-width: 900px;
     padding: 30px;
@@ -24,9 +26,11 @@ body {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
+/* Títulos */
 h1 { font-size: 36px; color: #00c3ff; }
 h2 { font-size: 24px; color: #bbb; }
 
+/* Lista das chapas */
 .lista-chapas {
     display: flex;
     flex-direction: column;
@@ -35,20 +39,54 @@ h2 { font-size: 24px; color: #bbb; }
     width: 100%;
 }
 
+/* Estilizando os cartões das chapas */
 .chapa-card {
     background: linear-gradient(to right, #007bff, #00c3ff);
     padding: 20px;
     border-radius: 12px;
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Botões */
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
 }
 
 button {
     padding: 10px 20px;
+    font-size: 16px;
     background: #28a745;
     color: white;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 button:hover {
     background: #218838;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    .botoes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chapa-card {
+        max-width: 90%;
+    }
+
+    button {
+        width: 100%;
+    }
 }
