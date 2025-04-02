@@ -25,11 +25,6 @@ h2 {
     font-size: 28px;
 }
 
-p {
-    font-size: 20px;
-    color: #333;
-}
-
 .candidato {
     display: flex;
     align-items: center;
@@ -48,11 +43,6 @@ p {
     border: 3px solid #ffcc00;
 }
 
-.candidato label {
-    font-size: 20px;
-    cursor: pointer;
-}
-
 button {
     margin-top: 20px;
     padding: 15px;
@@ -67,85 +57,4 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-#resultados {
-    display: none;
-    margin-top: 25px;
-    background-color: #dff0d8;
-    padding: 20px;
-    border-radius: 12px;
-    border: 3px solid #3c763d;
-}
-
-.highlight {
-    background-color: #ffff99;
-    padding: 5px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-#vencedor {
-    display: none;
-    margin-top: 30px;
-    padding: 20px;
-    background: #fff3cd;
-    border: 4px dashed #ffa500;
-    border-radius: 20px;
-    animation: aparecer 0.7s ease-in-out forwards;
-}
-
-#vencedor img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 6px solid #ffa500;
-    margin-bottom: 15px;
-}
-
-#vencedor h2 {
-    color: #e65100;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.fireworks {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    background: transparent;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-.emoji {
-    position: absolute;
-    font-size: 30px;
-    animation: float 3s linear infinite;
-    user-select: none;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
 }
