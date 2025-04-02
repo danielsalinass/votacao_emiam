@@ -1,48 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado da Votação</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🏆 Resultado da Votação</h1>
     <div class="container">
-        <div id="vencedor"></div>
-        <canvas id="graficoVotos"></canvas>
+        <h1>🏆 Resultado da Votação</h1>
+        <div id="resultado"></div>
+        <button onclick="window.location.href='index.html'">Voltar</button>
     </div>
-    <script>
-        const vencedor = JSON.parse(localStorage.getItem('vencedor'));
-        const votos = JSON.parse(localStorage.getItem('votos'));
-        const vencedorDiv = document.getElementById("vencedor");
 
-        if (vencedor && vencedor.length > 0) {
-            vencedorDiv.innerHTML = `<h2>🎉 O vencedor ${vencedor.length > 1 ? "foram" : "foi"} ${vencedor.join(" e ")}!</h2>`;
+    <script>
+        const votos = JSON.parse(localStorage.getItem('votos')) || {};
+        const vencedores = JSON.parse(localStorage.getItem('vencedor')) || [];
+        const resultadoDiv = document.getElementById("resultado");
+
+        if (vencedores.length > 0) {
+            resultadoDiv.innerHTML = `<h2>🎉 Vencedores: ${vencedores.join(", ")}</h2>`;
         } else {
-            vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada ou nenhum voto foi registrado.</p>`;
+            resultadoDiv.innerHTML = "<h2>❌ Nenhum vencedor definido.</h2>";
         }
 
-        const ctx = document.getElementById("graficoVotos").getContext("2d");
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: Object.keys(votos),
-                datasets: [{
-                    label: "Quantidade de Votos",
-                    data: Object.values(votos),
-                    backgroundColor: ["#ff6600", "#ffcc00", "#4caf50"],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
+        let votosHTML = "<h3>📊 Total de votos:</h3><ul>";
+        for (let chapa in votos) {
+            votosHTML += `<li><strong>${chapa}:</strong> ${votos[chapa]} votos</li>`;
+        }
+        votosHTML += "</ul>";
+        resultadoDiv.innerHTML += votosHTML;
     </script>
 </body>
 </html>
