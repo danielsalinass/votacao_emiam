@@ -21,22 +21,20 @@ chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
     const div = document.createElement("div");
-    div.className = "candidato";
+    div.className = "chapa-card";
     div.innerHTML = `
-        <input type="radio" name="chapa" value="${chapa.nome}" id="${chapa.nome}" ${votacaoEncerrada ? "disabled" : ""}>
-        <label for="${chapa.nome}">
-            <div class="chapa-container">
-                <div class="chapa-info">
-                    <img src="${chapa.imagemRep}" alt="${chapa.representante}">
-                    <p>${chapa.representante} (Representante)</p>
-                </div>
-                <div class="chapa-info">
-                    <img src="${chapa.imagemVice}" alt="${chapa.vice}">
-                    <p>${chapa.vice} (Vice)</p>
-                </div>
-            </div>
-            <p><strong>${chapa.nome}</strong></p>
-        </label>
+        <div class="chapa-info">
+            <img src="${chapa.imagemRep}" alt="${chapa.representante}">
+            <p>${chapa.representante} (Representante)</p>
+        </div>
+        <div class="chapa-info">
+            <img src="${chapa.imagemVice}" alt="${chapa.vice}">
+            <p>${chapa.vice} (Vice)</p>
+        </div>
+        <div class="chapa-selecao">
+            <input type="radio" name="chapa" value="${chapa.nome}" id="${chapa.nome}" ${votacaoEncerrada ? "disabled" : ""}>
+            <label for="${chapa.nome}"><strong>${chapa.nome}</strong></label>
+        </div>
     `;
     listaCandidatos.appendChild(div);
 });
