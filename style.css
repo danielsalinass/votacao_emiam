@@ -34,29 +34,13 @@ h1 {
 }
 
 h1 span {
-    color: #ffce56; /* Cor diferente para a sala */
+    color: #ffce56;
 }
 
 h2 { 
     font-size: 24px; 
     color: #bbb;
-    margin-bottom: 15px; /* Espaçamento maior entre o título e o restante do conteúdo */
-}
-
-/* Mensagem de incentivo ao voto consciente */
-.mensagem-voto {
-    font-size: 18px;
-    font-weight: bold;
-    color: #f8d210;
-    margin-bottom: 20px;
-}
-
-/* Ajustando espaçamento para "Escolha sua chapa:" */
-p.escolha-chapa {
-    margin-bottom: 25px; /* Aumenta a distância entre o texto e as chapas */
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
+    margin-bottom: 15px;
 }
 
 /* Lista das chapas */
@@ -68,31 +52,16 @@ p.escolha-chapa {
     width: 100%;
 }
 
-/* Estilizando os cartões das chapas */
-.chapa-card {
-    background: linear-gradient(to right, #007bff, #00c3ff);
-    padding: 20px;
-    border-radius: 12px;
+/* Caixa de nome */
+#voterName {
+    padding: 10px;
     width: 80%;
-    max-width: 400px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
 }
 
-/* Centralizando o botão de "Confirmar Voto" */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza tudo dentro do form */
-}
-
-.botao-confirmar {
-    margin-top: 20px; /* Adiciona espaçamento */
-    width: 50%; /* Mantém um tamanho adequado */
-    max-width: 300px;
-    padding: 12px;
-    text-align: center;
-}
-
-/* Botões gerais */
+/* Botões */
 .botoes {
     display: flex;
     justify-content: center;
@@ -108,33 +77,8 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 button:hover {
     background: #218838;
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .container {
-        width: 90%;
-    }
-
-    .botoes {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .chapa-card {
-        max-width: 90%;
-    }
-
-    button {
-        width: 100%;
-    }
-
-    .botao-confirmar {
-        width: 100%; /* Para telas menores, botão ocupa toda a largura */
-    }
 }
