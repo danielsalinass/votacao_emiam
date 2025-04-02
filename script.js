@@ -1,103 +1,80 @@
-// Lista de chapas
+const votos = JSON.parse(localStorage.getItem('votos')) || {};
+const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
+const votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
+
 const chapas = [
-    { nome: "Chapa 1", representante: "Maria", vice: "Carlos", imagemRep: "maria.png", imagemVice: "carlos.png" },
-    { nome: "Chapa 2", representante: "João", vice: "Ana", imagemRep: "joao.png", imagemVice: "ana.png" },
-    { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
+    { nome: "Chapa 1", representante: "Maria", vice: "Carlos" },
+    { nome: "Chapa 2", representante: "João", vice: "Ana" },
+    { nome: "Chapa 3", representante: "Pedro", vice: "Julia" }
 ];
 
-let votos = JSON.parse(localStorage.getItem('votos')) || {};
-let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
-
+// Gerar lista de chapas
 const listaCandidatos = document.getElementById("listaCandidatos");
-const voteSound = new Audio("urna.mp3");
-
-// Gerar lista de chapas dinamicamente
 chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
     const div = document.createElement("div");
     div.className = "chapa-card";
     div.innerHTML = `
-        <div class="chapa-info">
-            <img src="${chapa.imagemRep}" alt="${chapa.representante}">
-            <p>${chapa.representante} (Representante)</p>
-        </div>
-        <div class="chapa-info">
-            <img src="${chapa.imagemVice}" alt="${chapa.vice}">
-            <p>${chapa.vice} (Vice)</p>
-        </div>
-        <div class="chapa-selecao">
-            <input type="radio" name="chapa" value="${chapa.nome}" id="${chapa.nome}" ${votacaoEncerrada ? "disabled" : ""}>
-            <label for="${chapa.nome}"><strong>${chapa.nome}</strong></label>
-        </div>
+        <strong>${chapa.nome}</strong>
+        <p>${chapa.representante} (Representante)</p>
+        <p>${chapa.vice} (Vice)</p>
+        <input type="radio" name="chapa" value="${chapa.nome}">
     `;
     listaCandidatos.appendChild(div);
 });
 
-// Função para confirmar voto
 function confirmVote() {
     if (votacaoEncerrada) {
-        alert('⚠️ A votação foi encerrada. Não é possível votar.');
+        Swal.fire('⚠️ A votação foi encerrada.', '', 'warning');
+        return;
+    }
+
+    const nomeEleitor = document.getElementById("voterName").value.trim();
+    if (!nomeEleitor) {
+        Swal.fire('⚠️ Insira seu nome antes de votar.', '', 'warning');
+        return;
+    }
+
+    if (votantes.includes(nomeEleitor)) {
+        Swal.fire('⚠️ Você já votou!', '', 'error');
         return;
     }
 
     const selected = document.querySelector('input[name="chapa"]:checked');
     if (selected) {
-        let confirmation = confirm(`Tem certeza que deseja votar na ${selected.value}?`);
-        if (confirmation) {
-            votos[selected.value]++;
-            localStorage.setItem('votos', JSON.stringify(votos));
+        votos[selected.value]++;
+        votantes.push(nomeEleitor);
 
-            voteSound.play();
-            alert(`✅ Voto confirmado para ${selected.value}!`);
+        localStorage.setItem('votos', JSON.stringify(votos));
+        localStorage.setItem('votantes', JSON.stringify(votantes));
 
-            setTimeout(() => {
-                selected.checked = false;
-            }, 200);
-        }
+        Swal.fire('✅ Voto confirmado!', '', 'success');
     } else {
-        alert('⚠️ Selecione uma chapa antes de votar.');
+        Swal.fire('⚠️ Selecione uma chapa antes de votar.', '', 'warning');
     }
 }
 
-// Função para encerrar a votação
-function endVote() {
-    votacaoEncerrada = true;
-    localStorage.setItem('votacaoEncerrada', JSON.stringify(true));
-    alert("🔒 A votação foi encerrada! Nenhum novo voto será aceito.");
-}
-
-// Função para reiniciar a votação
-function resetVote() {
-    localStorage.clear();
-    alert("🔄 A votação foi reiniciada!");
-    location.reload();
-}
-
-// Função para verificar senha antes de ações restritas
 function verificarSenha(acao) {
     Swal.fire({
         title: '🔒 Acesso Restrito',
-        text: 'Digite a senha para continuar:',
-        input: 'password', // Oculta os caracteres digitados
+        input: 'password',
         inputAttributes: { autocapitalize: 'off' },
         showCancelButton: true,
-        confirmButtonText: 'Acessar',
-        cancelButtonText: 'Cancelar',
-        preConfirm: (senha) => {
-            const senhaCorreta = "1234"; // Defina a senha aqui
-
-            if (senha === senhaCorreta) {
-                if (acao === "resultado") {
-                    window.location.href = "resultado.html";
-                } else if (acao === "encerrar") {
-                    endVote();
-                } else if (acao === "reiniciar") {
-                    resetVote();
-                }
-            } else {
-                Swal.fire('❌ Senha incorreta!', 'Acesso negado.', 'error');
+        confirmButtonText: 'Acessar'
+    }).then((result) => {
+        if (result.value === "1234") {
+            if (acao === "resultado") {
+                window.location.href = "resultado.html";
+            } else if (acao === "encerrar") {
+                votacaoEncerrada = true;
+                localStorage.setItem('votacaoEncerrada', JSON.stringify(true));
+            } else if (acao === "reiniciar") {
+                localStorage.clear();
+                location.reload();
             }
+        } else {
+            Swal.fire('❌ Senha incorreta!', '', 'error');
         }
     });
 }
