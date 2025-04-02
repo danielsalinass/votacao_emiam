@@ -77,13 +77,17 @@ p.escolha-chapa {
     max-width: 400px;
 }
 
-/* Espaçamento no botão "Confirmar Voto" */
-.botao-confirmar {
-    margin-top: 20px; /* Adiciona espaçamento */
-    display: block; /* Garante que fique abaixo das chapas */
+/* Centralizando o botão de "Confirmar Voto" */
+form {
+    text-align: center; /* Garante que os elementos dentro do formulário fiquem centralizados */
 }
 
-/* Botões */
+.botao-confirmar {
+    margin: 20px auto; /* Espaçamento e centralização */
+    display: block; /* Garante que o botão fique alinhado ao centro */
+}
+
+/* Botões gerais */
 .botoes {
     display: flex;
     justify-content: center;
