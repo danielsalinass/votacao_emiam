@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Votação Representante de Turma</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votação Escolar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1> Escola Municipal Ignácio de Andrade Melo</h1>
-    <h2> Votação para Representante e Vice</h2>
+
     <div class="container">
-        <p>Escolha sua chapa:</p>
-        <form id="voteForm">
-            <div id="listaCandidatos"></div>
-            <button type="button" onclick="confirmVote()">✅ Confirmar Voto</button>
-        </form>
-        
-        <button type="button" onclick="showWinner()">🏆 Mostrar Resultado</button>
-        <button type="button" onclick="endVote()">🔒 Encerrar Votação</button>
-        <button type="button" onclick="resetVote()">🔄 Reiniciar Votação</button>
+        <h1>📢 Eleição Escolar 2024</h1>
+        <h2>Vote na sua chapa favorita!</h2>
+
+        <div class="lista-chapas" id="listaCandidatos">
+            <!-- As chapas serão adicionadas dinamicamente -->
+        </div>
+
+        <button onclick="confirmVote()">✅ Confirmar Voto</button>
     </div>
 
-    <audio id="voteSound" src="vote_sound.mp3"></audio>
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
