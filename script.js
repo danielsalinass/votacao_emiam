@@ -1,11 +1,11 @@
 const votos = JSON.parse(localStorage.getItem('votos')) || {};
 const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
-const votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
+let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
 
 const chapas = [
-    { nome: "Chapa 1", representante: "Maria", vice: "Carlos" },
-    { nome: "Chapa 2", representante: "João", vice: "Ana" },
-    { nome: "Chapa 3", representante: "Pedro", vice: "Julia" }
+    { nome: "Chapa 1", representante: "Maria", vice: "Carlos", imagemRep: "maria.png", imagemVice: "carlos.png" },
+    { nome: "Chapa 2", representante: "João", vice: "Ana", imagemRep: "joao.png", imagemVice: "ana.png" },
+    { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
 ];
 
 // Gerar lista de chapas
@@ -16,6 +16,10 @@ chapas.forEach(chapa => {
     const div = document.createElement("div");
     div.className = "chapa-card";
     div.innerHTML = `
+        <div class="chapa-imagem">
+            <img src="${chapa.imagemRep}" alt="${chapa.representante}" class="candidato-img">
+            <img src="${chapa.imagemVice}" alt="${chapa.vice}" class="candidato-img">
+        </div>
         <strong>${chapa.nome}</strong>
         <p>${chapa.representante} (Representante)</p>
         <p>${chapa.vice} (Vice)</p>
