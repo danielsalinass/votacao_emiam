@@ -1,58 +1,66 @@
-const candidatos = [
-    { nome: "Maria", imagem: "https://i.imgur.com/0y8Ftya.png" },
-    { nome: "João", imagem: "https://i.imgur.com/kLZRM5C.png" },
-    { nome: "Ana", imagem: "https://i.imgur.com/JkFfU1B.png" }
+const chapas = [
+    { nome: "Chapa 1", representante: "Maria", vice: "Carlos", imagemRep: "maria.png", imagemVice: "carlos.png" },
+    { nome: "Chapa 2", representante: "João", vice: "Ana", imagemRep: "joao.png", imagemVice: "ana.png" },
+    { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
 ];
 
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
-let votaçãoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
-const voteSound = document.getElementById("voteSound");
+let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
 const listaCandidatos = document.getElementById("listaCandidatos");
+const voteSound = document.getElementById("voteSound");
 
-candidatos.forEach(cand => {
-    if (!(cand.nome in votos)) votos[cand.nome] = 0;
+chapas.forEach(chapa => {
+    if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
     const div = document.createElement("div");
     div.className = "candidato";
     div.innerHTML = `
-        <input type="radio" name="candidato" value="${cand.nome}" id="${cand.nome}" ${votaçãoEncerrada ? "disabled" : ""}>
-        <label for="${cand.nome}">
-            <img src="${cand.imagem}" alt="${cand.nome}">
-            ${cand.nome}
+        <input type="radio" name="chapa" value="${chapa.nome}" id="${chapa.nome}" ${votacaoEncerrada ? "disabled" : ""}>
+        <label for="${chapa.nome}">
+            <div class="chapa-container">
+                <div class="chapa-info">
+                    <img src="${chapa.imagemRep}" alt="${chapa.representante}">
+                    <p>${chapa.representante} (Representante)</p>
+                </div>
+                <div class="chapa-info">
+                    <img src="${chapa.imagemVice}" alt="${chapa.vice}">
+                    <p>${chapa.vice} (Vice)</p>
+                </div>
+            </div>
+            <p><strong>${chapa.nome}</strong></p>
         </label>
     `;
     listaCandidatos.appendChild(div);
 });
 
 function confirmVote() {
-    if (votaçãoEncerrada) {
+    if (votacaoEncerrada) {
         alert('A votação foi encerrada.');
         return;
     }
 
-    const selected = document.querySelector('input[name="candidato"]:checked');
+    const selected = document.querySelector('input[name="chapa"]:checked');
     if (selected) {
         votos[selected.value]++;
         localStorage.setItem('votos', JSON.stringify(votos));
-        voteSound.play().catch(() => {});
+        voteSound.play();
         alert(`✅ Voto confirmado para ${selected.value}!`);
     } else {
-        alert('Selecione um candidato antes de votar.');
+        alert('Selecione uma chapa antes de votar.');
     }
 }
 
 function showWinner() {
     let maxVotos = Math.max(...Object.values(votos));
-    let vencedores = Object.keys(votos).filter(candidato => votos[candidato] === maxVotos);
+    let vencedores = Object.keys(votos).filter(chapa => votos[chapa] === maxVotos);
     localStorage.setItem('vencedor', JSON.stringify(vencedores));
-    localStorage.setItem('votos', JSON.stringify(votos));
     window.location.href = "resultado.html";
 }
 
 function endVote() {
-    votaçãoEncerrada = true;
-    localStorage.setItem('votacaoEncerrada', JSON.stringify(votaçãoEncerrada));
-    alert('🔒 Votação encerrada!');
+    votacaoEncerrada = true;
+    localStorage.setItem('votacaoEncerrada', JSON.stringify(votacaoEncerrada));
+    alert('🔒 A votação foi encerrada.');
 }
 
 function resetVote() {
