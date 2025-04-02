@@ -4,21 +4,22 @@ const candidatos = [
     { nome: "Ana", imagem: "https://i.imgur.com/JkFfU1B.png" }
 ];
 
-let votos = {};
-let votaçãoEncerrada = false; // Variável para verificar se a votação foi encerrada
+let votos = JSON.parse(localStorage.getItem('votos')) || {};
+let votaçãoEncerrada = false;
 const voteSound = document.getElementById("voteSound");
 const music = document.getElementById("victoryMusic");
 const listaCandidatos = document.getElementById("listaCandidatos");
 const vencedorDiv = document.getElementById("vencedor");
 
-candidatos.forEach((cand, index) => {
-    votos[cand.nome] = 0;
-
+// Inicializa votos caso seja o primeiro acesso
+candidatos.forEach(cand => {
+    if (!(cand.nome in votos)) votos[cand.nome] = 0;
+    
     const div = document.createElement("div");
     div.className = "candidato";
     div.innerHTML = `
-        <input type="radio" name="candidato" value="${cand.nome}" id="cand${index}">
-        <label for="cand${index}">
+        <input type="radio" name="candidato" value="${cand.nome}" id="${cand.nome}">
+        <label for="${cand.nome}">
             <img src="${cand.imagem}" alt="${cand.nome}">
             ${cand.nome}
         </label>
@@ -31,15 +32,16 @@ function confirmVote() {
         alert('A votação foi encerrada, não é possível votar mais.');
         return;
     }
-
+    
     const selected = document.querySelector('input[name="candidato"]:checked');
     if (selected) {
-        let confirmation = confirm('Tem certeza que deseja votar em ' + selected.value + '?');
+        let confirmation = confirm(`Tem certeza que deseja votar em ${selected.value}?`);
         if (confirmation) {
             votos[selected.value]++;
+            localStorage.setItem('votos', JSON.stringify(votos));
             voteSound.currentTime = 0;
             voteSound.play().catch(e => console.log("Erro ao tocar áudio:", e));
-            alert('✅ Voto confirmado para ' + selected.value + '!');
+            alert(`✅ Voto confirmado para ${selected.value}!`);
         }
     } else {
         alert('Por favor, selecione um candidato antes de votar.');
@@ -47,48 +49,28 @@ function confirmVote() {
 }
 
 function showWinner() {
-    let max = 0;
-    let vencedor = "";
-    let vencedorImg = "";
-    const listaResultados = document.getElementById("listaResultados");
-    listaResultados.innerHTML = "";
+    let vencedor = Object.keys(votos).reduce((a, b) => votos[a] > votos[b] ? a : b);
+    let max = votos[vencedor];
 
-    for (let nome in votos) {
-        if (votos[nome] > max) {
-            max = votos[nome];
-            vencedor = nome;
-        }
-    }
-
-    candidatos.forEach(c => {
-        if (c.nome === vencedor) {
-            vencedorImg = c.imagem;
-        }
-    });
-
-    for (let nome in votos) {
-        const li = document.createElement("li");
-        li.innerHTML = `${nome}: <span class="highlight">${votos[nome]}</span> voto(s)`;
-        listaResultados.appendChild(li);
-    }
-
-    document.getElementById("resultados").style.display = "block";
-
-    if (max > 0) {
-        vencedorDiv.style.display = "block";
-        vencedorDiv.innerHTML = `
-            <img src="${vencedorImg}" alt="${vencedor}">
-            <h2>🎉 Parabéns, ${vencedor}!</h2>
-            <p>Você foi eleito(a) com <strong>${max}</strong> voto(s)!</p>
-        `;
-        startCelebration();
-
-        // Armazenar o vencedor para a próxima página
-        localStorage.setItem('vencedor', vencedor);
-        localStorage.setItem('votos', JSON.stringify(votos));
-    } else {
+    if (max === 0) {
         alert("Nenhum voto registrado ainda.");
+        return;
     }
+
+    const candidatoVencedor = candidatos.find(c => c.nome === vencedor);
+    
+    document.getElementById("listaResultados").innerHTML = Object.entries(votos)
+        .map(([nome, qtd]) => `<li>${nome}: <span class="highlight">${qtd}</span> voto(s)</li>`)
+        .join("");
+
+    vencedorDiv.innerHTML = `
+        <img src="${candidatoVencedor.imagem}" alt="${vencedor}">
+        <h2>🎉 Parabéns, ${vencedor}!</h2>
+        <p>Você foi eleito(a) com <strong>${max}</strong> voto(s)!</p>
+    `;
+    
+    startCelebration();
+    localStorage.setItem('vencedor', vencedor);
 }
 
 function endVote() {
@@ -96,10 +78,9 @@ function endVote() {
         alert('A votação já foi encerrada.');
         return;
     }
-
+    
     votaçãoEncerrada = true;
     alert('A votação foi encerrada. O resultado será mostrado em breve.');
-    // Desabilitar interação com os botões
     document.querySelectorAll("input[type='radio']").forEach(input => input.disabled = true);
     document.querySelector("button[onclick='confirmVote()']").disabled = true;
 }
@@ -108,7 +89,7 @@ function startCelebration() {
     const fireworks = document.getElementById('fireworks');
     fireworks.innerHTML = "";
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
         const emoji = document.createElement("div");
         emoji.className = "emoji";
         emoji.style.left = Math.random() * 100 + "vw";
@@ -126,4 +107,10 @@ function startCelebration() {
         fireworks.innerHTML = "";
         music.pause();
     }, 6000);
+}
+
+function resetVote() {
+    localStorage.removeItem('votos');
+    localStorage.removeItem('vencedor');
+    location.reload();
 }
