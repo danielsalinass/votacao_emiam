@@ -28,20 +28,19 @@ body {
 
 /* Títulos */
 h1 { 
-    font-size: 34px; 
-    color: #00c3ff; 
+    font-size: 36px; 
+    color: #00c3ff;
     margin-bottom: 10px;
 }
 
-h1 #sala {
-    color: #ffce56; /* Cor destacada para a sala */
-    font-weight: bold;
+h1 span {
+    color: #ffce56; /* Cor diferente para a sala */
 }
 
 h2 { 
     font-size: 24px; 
-    color: #bbb; 
-    margin-bottom: 20px; /* Maior espaçamento abaixo do título */
+    color: #bbb;
+    margin-bottom: 15px; /* Espaçamento maior entre o título e o restante do conteúdo */
 }
 
 /* Mensagem de incentivo ao voto consciente */
@@ -49,12 +48,15 @@ h2 {
     font-size: 18px;
     font-weight: bold;
     color: #f8d210;
-    margin-bottom: 25px; /* Maior espaçamento abaixo */
+    margin-bottom: 20px;
 }
 
-/* Espaçamento entre os elementos */
-p {
-    margin-bottom: 15px;
+/* Ajustando espaçamento para "Escolha sua chapa:" */
+p.escolha-chapa {
+    margin-bottom: 25px; /* Aumenta a distância entre o texto e as chapas */
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 /* Lista das chapas */
@@ -64,17 +66,21 @@ p {
     gap: 20px;
     align-items: center;
     width: 100%;
-    margin-bottom: 20px; /* Espaçamento extra para separar do botão */
 }
 
-/* Botão "Confirmar Voto" */
+/* Estilizando os cartões das chapas */
+.chapa-card {
+    background: linear-gradient(to right, #007bff, #00c3ff);
+    padding: 20px;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Espaçamento no botão "Confirmar Voto" */
 .botao-confirmar {
-    margin-top: 30px;
-    display: block;
-    width: 100%;
-    max-width: 250px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px; /* Adiciona espaçamento */
+    display: block; /* Garante que fique abaixo das chapas */
 }
 
 /* Botões */
@@ -82,8 +88,7 @@ p {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 40px; /* Espaçamento maior entre os botões e a parte superior */
-    flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 button {
@@ -112,11 +117,11 @@ button:hover {
         align-items: center;
     }
 
-    button {
-        width: 100%;
+    .chapa-card {
+        max-width: 90%;
     }
 
-    .botao-confirmar {
-        max-width: 100%;
+    button {
+        width: 100%;
     }
 }
