@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -6,21 +5,18 @@
 }
 
 body {
-    background-color: #1a1a1a; /* Fundo escuro elegante */
+    background-color: #1a1a1a;
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    height: 100vh; /* Ocupa toda a altura da tela */
+    align-items: center;
+    height: 100vh;
     padding: 20px;
 }
 
-/* Contêiner principal */
 .container {
-    width: 100%;
     max-width: 900px;
     padding: 30px;
     background: #222;
@@ -28,108 +24,31 @@ body {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Título e subtítulo */
-h1 {
-    color: #00c3ff;
-    font-size: 36px;
-    margin-bottom: 10px;
-}
+h1 { font-size: 36px; color: #00c3ff; }
+h2 { font-size: 24px; color: #bbb; }
 
-h2 {
-    color: #bbb;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Lista das chapas */
 .lista-chapas {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Espaçamento entre os cards */
+    gap: 20px;
     align-items: center;
     width: 100%;
 }
 
-/* Estilizando os cartões das chapas */
 .chapa-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
     background: linear-gradient(to right, #007bff, #00c3ff);
+    padding: 20px;
     border-radius: 12px;
-    color: white;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-in-out;
 }
 
-.chapa-card:hover {
-    transform: scale(1.05);
-}
-
-/* Imagens dos candidatos */
-.chapa-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 15px; /* Espaçamento entre a imagem e o botão */
-}
-
-.chapa-info img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid white;
-}
-
-/* Nome dos candidatos */
-.chapa-info p {
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-/* Botão de seleção */
-.chapa-selecao {
-    margin-top: 10px;
-}
-
-.chapa-selecao input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-/* Botões principais */
 button {
-    margin-top: 30px;
-    padding: 15px 25px;
-    font-size: 18px;
-    cursor: pointer;
-    background-color: #28a745;
+    padding: 10px 20px;
+    background: #28a745;
     color: white;
     border: none;
-    border-radius: 8px;
-    transition: background 0.3s;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 600px) {
-    .container {
-        width: 90%;
-    }
-
-    .chapa-card {
-        max-width: 90%;
-    }
-
-    button {
-        width: 100%;
-    }
+    background: #218838;
 }
