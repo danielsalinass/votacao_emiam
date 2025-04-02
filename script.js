@@ -57,20 +57,8 @@ function showWinner() {
         return;
     }
 
-    const candidatoVencedor = candidatos.find(c => c.nome === vencedor);
-    
-    document.getElementById("listaResultados").innerHTML = Object.entries(votos)
-        .map(([nome, qtd]) => `<li>${nome}: <span class="highlight">${qtd}</span> voto(s)</li>`)
-        .join("");
-
-    vencedorDiv.innerHTML = `
-        <img src="${candidatoVencedor.imagem}" alt="${vencedor}">
-        <h2>🎉 Parabéns, ${vencedor}!</h2>
-        <p>Você foi eleito(a) com <strong>${max}</strong> voto(s)!</p>
-    `;
-    
-    startCelebration();
     localStorage.setItem('vencedor', vencedor);
+    window.location.href = "resultado.html"; // Redireciona para a página de resultado
 }
 
 function endVote() {
