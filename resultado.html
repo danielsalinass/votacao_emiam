@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado da Votação</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>🏆 Resultado da Votação</h1>
-        <div id="vencedor"></div> <!-- Aqui aparece o resultado (vencedor/empate) -->
-        
-        <!-- Imagem das chapas vencedoras (inserido corretamente) -->
+        <div id="vencedor"></div>
         <div id="imagemVencedor" class="imagem-vencedor-container"></div>
-        
-        <!-- Gráfico de votos -->
         <canvas id="graficoVotos"></canvas> 
-        
-        <div class="botoes">
-            <button onclick="window.location.href='index.html'">🔙 Voltar</button>
-        </div>
+        <h2>Eleitores que votaram</h2>
+        <ul id="listaVotantes"></ul>
+        <button onclick="window.location.href='index.html'">🔙 Voltar</button>
     </div>
 
     <script src="resultado.js"></script>
