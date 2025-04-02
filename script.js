@@ -58,6 +58,7 @@ function showWinner() {
     }
 
     localStorage.setItem('vencedor', vencedor);
+    localStorage.setItem('votos', JSON.stringify(votos));
     window.location.href = "resultado.html"; // Redireciona para a página de resultado
 }
 
