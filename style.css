@@ -79,12 +79,17 @@ p.escolha-chapa {
 
 /* Centralizando o botão de "Confirmar Voto" */
 form {
-    text-align: center; /* Garante que os elementos dentro do formulário fiquem centralizados */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza tudo dentro do form */
 }
 
 .botao-confirmar {
-    margin: 20px auto; /* Espaçamento e centralização */
-    display: block; /* Garante que o botão fique alinhado ao centro */
+    margin-top: 20px; /* Adiciona espaçamento */
+    width: 50%; /* Mantém um tamanho adequado */
+    max-width: 300px;
+    padding: 12px;
+    text-align: center;
 }
 
 /* Botões gerais */
@@ -127,5 +132,9 @@ button:hover {
 
     button {
         width: 100%;
+    }
+
+    .botao-confirmar {
+        width: 100%; /* Para telas menores, botão ocupa toda a largura */
     }
 }
