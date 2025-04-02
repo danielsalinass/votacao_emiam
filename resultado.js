@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxVotos = Math.max(...Object.values(votos));
     const vencedores = Object.keys(votos).filter(chapa => votos[chapa] === maxVotos);
 
-    // Exibir resultado formatado corretamente
+    // Exibir resultado formatado corretamente com concordância
     if (vencedores.length === 1) {
-        vencedorDiv.innerHTML = `<h2>🎉 A chapa vencedora é <strong>${vencedores[0]}</strong> com ${maxVotos} votos!</h2>`;
+        vencedorDiv.innerHTML = `<h2>🎉 A chapa vencedora é <strong>${vencedores[0]}</strong> com ${maxVotos} ${maxVotos === 1 ? "voto" : "votos"}!</h2>`;
     } else {
-        vencedorDiv.innerHTML = `<h2>⚖️ Houve um empate entre as chapas <strong>${vencedores.join(" e ")}</strong> com ${maxVotos} votos cada.</h2>`;
+        vencedorDiv.innerHTML = `<h2>⚖️ Houve um empate entre as chapas <strong>${vencedores.join(" e ")}</strong> com ${maxVotos} ${maxVotos === 1 ? "voto" : "votos"} cada.</h2>`;
     }
 
     // Exibir gráfico
