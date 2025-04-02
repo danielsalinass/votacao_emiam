@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultado da Votação</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Resultado da Votação</h1>
+    <div id="vencedor"></div>
+    <script>
+        const vencedor = localStorage.getItem('vencedor');
+        const votos = JSON.parse(localStorage.getItem('votos'));
+        const vencedorDiv = document.getElementById("vencedor");
+
+        if (vencedor) {
+            vencedorDiv.innerHTML = `
+                <h2>🎉 O vencedor foi ${vencedor}!</h2>
+                <p>Detalhes da votação:</p>
+                <ul>
+                    ${Object.keys(votos).map(candidato => 
+                        `<li>${candidato}: ${votos[candidato]} votos</li>`
+                    ).join('')}
+                </ul>
+            `;
+        } else {
+            vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada.</p>`;
+        }
+    </script>
+</body>
+</html>
