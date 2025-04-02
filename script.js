@@ -8,7 +8,7 @@ const chapas = [
     { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
 ];
 
-// Gerar lista de chapas
+// Gerar lista de chapas dinamicamente
 const listaCandidatos = document.getElementById("listaCandidatos");
 chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
@@ -47,13 +47,18 @@ function confirmVote() {
 
     const selected = document.querySelector('input[name="chapa"]:checked');
     if (selected) {
-        votos[selected.value]++;
-        votantes.push(nomeEleitor);
+        votos[selected.value]++; // Adiciona o voto à chapa escolhida
+        votantes.push(nomeEleitor); // Registra o nome do votante
 
+        // Atualiza os dados no localStorage
         localStorage.setItem('votos', JSON.stringify(votos));
         localStorage.setItem('votantes', JSON.stringify(votantes));
 
-        Swal.fire('✅ Voto confirmado!', '', 'success');
+        // Mensagem de sucesso e reset do formulário
+        Swal.fire('✅ Voto confirmado!', '', 'success').then(() => {
+            document.getElementById("voterName").value = ""; // Apaga o nome
+            selected.checked = false; // Remove a seleção da chapa
+        });
     } else {
         Swal.fire('⚠️ Selecione uma chapa antes de votar.', '', 'warning');
     }
