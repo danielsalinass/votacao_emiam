@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado da Votação</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca para gráficos -->
 </head>
 <body>
     <div class="container">
         <h1>🏆 Resultado da Votação</h1>
-        <div id="resultado"></div>
-        <button onclick="window.location.href='index.html'">Voltar</button>
+        <div id="vencedor"></div>
+        <canvas id="graficoVotos"></canvas> <!-- Gráfico será desenhado aqui -->
+        <div class="botoes">
+            <button onclick="window.location.href='index.html'">🔙 Voltar</button>
+        </div>
     </div>
 
     <script src="resultado.js"></script>
