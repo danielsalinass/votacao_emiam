@@ -8,10 +8,41 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Resultado da Votação</h1>
-    <div id="vencedor"></div>
-    <canvas id="graficoVotos" width="400" height="200"></canvas>
-    <div id="fireworks"></div>
-    <script src="resultado.js"></script>
+    <h1>🏆 Resultado da Votação</h1>
+    <div class="container">
+        <div id="vencedor"></div>
+        <canvas id="graficoVotos"></canvas>
+    </div>
+    <script>
+        const vencedor = JSON.parse(localStorage.getItem('vencedor'));
+        const votos = JSON.parse(localStorage.getItem('votos'));
+        const vencedorDiv = document.getElementById("vencedor");
+
+        if (vencedor && vencedor.length > 0) {
+            vencedorDiv.innerHTML = `<h2>🎉 O vencedor ${vencedor.length > 1 ? "foram" : "foi"} ${vencedor.join(" e ")}!</h2>`;
+        } else {
+            vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada ou nenhum voto foi registrado.</p>`;
+        }
+
+        const ctx = document.getElementById("graficoVotos").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: Object.keys(votos),
+                datasets: [{
+                    label: "Quantidade de Votos",
+                    data: Object.values(votos),
+                    backgroundColor: ["#ff6600", "#ffcc00", "#4caf50"],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
