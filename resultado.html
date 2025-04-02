@@ -5,28 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resultado da Votação</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Resultado da Votação</h1>
     <div id="vencedor"></div>
-
+    <canvas id="graficoVotos"></canvas>
+    <div class="fireworks" id="fireworks"></div>
+    
     <script>
-        const vencedor = JSON.parse(localStorage.getItem('vencedor')); // Corrigido: converte de volta para array
+        const vencedor = JSON.parse(localStorage.getItem('vencedor'));
         const votos = JSON.parse(localStorage.getItem('votos'));
         const vencedorDiv = document.getElementById("vencedor");
-
+        const fireworks = document.getElementById('fireworks');
+        
         if (vencedor && vencedor.length > 0) {
             vencedorDiv.innerHTML = `
                 <h2>🎉 O vencedor ${vencedor.length > 1 ? "foram" : "foi"} ${vencedor.join(" e ")}!</h2>
-                <p>Detalhes da votação:</p>
-                <ul>
-                    ${Object.keys(votos).map(candidato => 
-                        `<li>${candidato}: ${votos[candidato]} votos</li>`
-                    ).join('')}
-                </ul>
             `;
+            startCelebration();
         } else {
             vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada ou nenhum voto foi registrado.</p>`;
+        }
+        
+        const ctx = document.getElementById('graficoVotos').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(votos),
+                datasets: [{
+                    label: 'Número de Votos',
+                    data: Object.values(votos),
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffcc00'],
+                    borderColor: '#333',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+        
+        function startCelebration() {
+            fireworks.innerHTML = "";
+            for (let i = 0; i < 20; i++) {
+                const emoji = document.createElement("div");
+                emoji.className = "emoji";
+                emoji.style.left = Math.random() * 100 + "vw";
+                emoji.style.top = "-50px";
+                emoji.textContent = ["🎉", "🎊", "👏", "🎈", "🥳"][Math.floor(Math.random() * 5)];
+                emoji.style.fontSize = `${20 + Math.random() * 30}px`;
+                emoji.style.animationDuration = `${2 + Math.random() * 3}s`;
+                fireworks.appendChild(emoji);
+            }
+            setTimeout(() => { fireworks.innerHTML = ""; }, 6000);
         }
     </script>
 </body>
