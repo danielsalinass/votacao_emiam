@@ -3,101 +3,30 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Votação Representante de Turma</title>
+    <title>Resultado da Votação</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Escola Municipal Ignácio de Andrade Melo</h1>
-    <h2>Votação para Representante de Turma</h2>
-    <div class="container">
-        <p>Escolha seu candidato:</p>
-        <form id="voteForm">
-            <div id="listaCandidatos"></div>
-            <button type="button" onclick="confirmVote()">✅ Confirmar Voto</button>
-        </form>
-        <button type="button" onclick="showWinner()">🏆 Mostrar Resultado</button>
-        <button type="button" onclick="endVote()">🔒 Encerrar Votação</button>
-        <div id="resultados">
-            <h3>Resultados:</h3>
-            <ul id="listaResultados" style="list-style: none; padding: 0;"></ul>
-        </div>
-        <div id="vencedor"></div>
-    </div>
-
-    <div class="fireworks" id="fireworks"></div>
-
-    <audio id="voteSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_49ab2502b2.mp3?filename=brazilian-electronic-voting-sound-108212.mp3"></audio>
-    <audio id="victoryMusic" src="https://cdn.pixabay.com/audio/2022/03/31/audio_a1ba4bb4aa.mp3" preload="auto"></audio>
+    <h1>Resultado da Votação</h1>
+    <div id="vencedor"></div>
 
     <script>
-        const candidatos = [
-            { nome: "Maria", imagem: "https://i.imgur.com/0y8Ftya.png" },
-            { nome: "João", imagem: "https://i.imgur.com/kLZRM5C.png" },
-            { nome: "Ana", imagem: "https://i.imgur.com/JkFfU1B.png" }
-        ];
+        const vencedor = JSON.parse(localStorage.getItem('vencedor')); // Corrigido: converte de volta para array
+        const votos = JSON.parse(localStorage.getItem('votos'));
+        const vencedorDiv = document.getElementById("vencedor");
 
-        let votos = JSON.parse(localStorage.getItem('votos')) || {};
-        let votaçãoEncerrada = false;
-        const voteSound = document.getElementById("voteSound");
-        const music = document.getElementById("victoryMusic");
-        const listaCandidatos = document.getElementById("listaCandidatos");
-
-        candidatos.forEach(cand => {
-            if (!(cand.nome in votos)) votos[cand.nome] = 0;
-            
-            const div = document.createElement("div");
-            div.className = "candidato";
-            div.innerHTML = `
-                <input type="radio" name="candidato" value="${cand.nome}" id="${cand.nome}">
-                <label for="${cand.nome}">
-                    <img src="${cand.imagem}" alt="${cand.nome}">
-                    ${cand.nome}
-                </label>
+        if (vencedor && vencedor.length > 0) {
+            vencedorDiv.innerHTML = `
+                <h2>🎉 O vencedor ${vencedor.length > 1 ? "foram" : "foi"} ${vencedor.join(" e ")}!</h2>
+                <p>Detalhes da votação:</p>
+                <ul>
+                    ${Object.keys(votos).map(candidato => 
+                        `<li>${candidato}: ${votos[candidato]} votos</li>`
+                    ).join('')}
+                </ul>
             `;
-            listaCandidatos.appendChild(div);
-        });
-
-        function confirmVote() {
-            if (votaçãoEncerrada) {
-                alert('A votação foi encerrada, não é possível votar mais.');
-                return;
-            }
-            
-            const selected = document.querySelector('input[name="candidato"]:checked');
-            if (selected) {
-                let confirmation = confirm(`Tem certeza que deseja votar em ${selected.value}?`);
-                if (confirmation) {
-                    votos[selected.value]++;
-                    localStorage.setItem('votos', JSON.stringify(votos));
-                    voteSound.currentTime = 0;
-                    voteSound.play().catch(e => console.log("Erro ao tocar áudio:", e));
-                    alert(`✅ Voto confirmado para ${selected.value}!`);
-                }
-            } else {
-                alert('Por favor, selecione um candidato antes de votar.');
-            }
-        }
-
-        function showWinner() {
-            let maxVotos = Math.max(...Object.values(votos));
-            let vencedores = Object.keys(votos).filter(candidato => votos[candidato] === maxVotos);
-
-            if (maxVotos === 0) {
-                alert("Nenhum voto registrado ainda.");
-                return;
-            }
-
-            if (vencedores.length > 1) {
-                localStorage.setItem('vencedor', 'Empate');
-                localStorage.setItem('empate', JSON.stringify(vencedores));
-            } else {
-                localStorage.setItem('vencedor', vencedores[0]);
-                let vencedorObj = candidatos.find(c => c.nome === vencedores[0]);
-                localStorage.setItem('vencedorImagem', vencedorObj.imagem);
-            }
-            
-            localStorage.setItem('votos', JSON.stringify(votos));
-            window.location.href = "resultado.html";
+        } else {
+            vencedorDiv.innerHTML = `<p>A votação ainda não foi encerrada ou nenhum voto foi registrado.</p>`;
         }
     </script>
 </body>
