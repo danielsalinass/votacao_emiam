@@ -7,7 +7,8 @@ body, h1, h2, h3, p, button {
 
 body {
     text-align: center;
-    background-color: #f4f4f4;
+    background-color: #1a1a1a; /* Fundo escuro elegante */
+    color: white;
     padding: 20px;
 }
 
@@ -16,15 +17,15 @@ body {
     max-width: 800px;
     margin: auto;
     padding: 20px;
-    background: #fff;
+    background: #222;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 /* Estilo do título */
 h1 {
-    color: #333;
-    font-size: 28px;
+    color: #00c3ff;
+    font-size: 26px;
     margin-bottom: 20px;
 }
 
@@ -32,21 +33,22 @@ h1 {
 .lista-chapas {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
 }
 
-/* Cartão de cada chapa */
+/* Estilizando os cartões das chapas */
 .chapa-card {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 600px;
     padding: 15px;
     background: linear-gradient(to right, #007bff, #00c3ff);
     border-radius: 12px;
     color: white;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
 }
 
@@ -54,7 +56,7 @@ h1 {
     transform: scale(1.05);
 }
 
-/* Área das imagens */
+/* Imagens dos candidatos */
 .chapa-info {
     display: flex;
     flex-direction: column;
@@ -63,7 +65,6 @@ h1 {
     margin-right: 15px;
 }
 
-/* Imagens dos candidatos */
 .chapa-info img {
     width: 80px;
     height: 80px;
@@ -77,15 +78,12 @@ h1 {
     margin-top: 5px;
 }
 
-/* Área do botão de seleção */
+/* Estilizando o input radio */
 .chapa-selecao {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-grow: 1;
 }
 
-/* Input radio personalizado */
 .chapa-selecao input[type="radio"] {
     width: 20px;
     height: 20px;
