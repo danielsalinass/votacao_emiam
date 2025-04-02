@@ -5,6 +5,7 @@ const candidatos = [
 ];
 
 let votos = {};
+let votaçãoEncerrada = false; // Variável para verificar se a votação foi encerrada
 const voteSound = document.getElementById("voteSound");
 const music = document.getElementById("victoryMusic");
 const listaCandidatos = document.getElementById("listaCandidatos");
@@ -26,6 +27,11 @@ candidatos.forEach((cand, index) => {
 });
 
 function confirmVote() {
+    if (votaçãoEncerrada) {
+        alert('A votação foi encerrada, não é possível votar mais.');
+        return;
+    }
+
     const selected = document.querySelector('input[name="candidato"]:checked');
     if (selected) {
         let confirmation = confirm('Tem certeza que deseja votar em ' + selected.value + '?');
@@ -76,9 +82,26 @@ function showWinner() {
             <p>Você foi eleito(a) com <strong>${max}</strong> voto(s)!</p>
         `;
         startCelebration();
+
+        // Armazenar o vencedor para a próxima página
+        localStorage.setItem('vencedor', vencedor);
+        localStorage.setItem('votos', JSON.stringify(votos));
     } else {
         alert("Nenhum voto registrado ainda.");
     }
+}
+
+function endVote() {
+    if (votaçãoEncerrada) {
+        alert('A votação já foi encerrada.');
+        return;
+    }
+
+    votaçãoEncerrada = true;
+    alert('A votação foi encerrada. O resultado será mostrado em breve.');
+    // Desabilitar interação com os botões
+    document.querySelectorAll("input[type='radio']").forEach(input => input.disabled = true);
+    document.querySelector("button[onclick='confirmVote()']").disabled = true;
 }
 
 function startCelebration() {
