@@ -1,151 +1,33 @@
-body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    text-align: center;
-    background-color: #f0f8ff;
-    margin: 50px;
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Votação Representante de Turma</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Escola Municipal Ignácio de Andrade Melo</h1>
+    <h2>Votação para Representante de Turma</h2>
+    <div class="container">
+        <p>Escolha seu candidato:</p>
+        <form id="voteForm">
+            <div id="listaCandidatos"></div>
+            <button type="button" onclick="confirmVote()">✅ Confirmar Voto</button>
+        </form>
+        <button type="button" onclick="showWinner()">🏆 Mostrar Resultado</button>
+        <div id="resultados">
+            <h3>Resultados:</h3>
+            <ul id="listaResultados" style="list-style: none; padding: 0;"></ul>
+        </div>
+        <div id="vencedor"></div>
+    </div>
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 30px;
-    border: 6px solid #ffcc00;
-    border-radius: 25px;
-    box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2);
-    background-color: #fffae5;
-}
+    <div class="fireworks" id="fireworks"></div>
 
-h1 {
-    color: #ff6600;
-    font-size: 36px;
-}
+    <audio id="voteSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_49ab2502b2.mp3?filename=brazilian-electronic-voting-sound-108212.mp3"></audio>
+    <audio id="victoryMusic" src="https://cdn.pixabay.com/audio/2022/03/31/audio_a1ba4bb4aa.mp3" preload="auto"></audio>
 
-h2 {
-    color: #ff6600;
-    font-size: 28px;
-}
-
-p {
-    font-size: 20px;
-    color: #333;
-}
-
-.candidato {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 15px 0;
-    padding: 10px;
-    background-color: #fffbe6;
-    border-radius: 12px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.candidato img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid #ffcc00;
-}
-
-.candidato label {
-    font-size: 20px;
-    cursor: pointer;
-}
-
-button {
-    margin-top: 20px;
-    padding: 15px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#resultados {
-    display: none;
-    margin-top: 25px;
-    background-color: #dff0d8;
-    padding: 20px;
-    border-radius: 12px;
-    border: 3px solid #3c763d;
-}
-
-.highlight {
-    background-color: #ffff99;
-    padding: 5px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-#vencedor {
-    display: none;
-    margin-top: 30px;
-    padding: 20px;
-    background: #fff3cd;
-    border: 4px dashed #ffa500;
-    border-radius: 20px;
-    animation: aparecer 0.7s ease-in-out forwards;
-}
-
-#vencedor img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 6px solid #ffa500;
-    margin-bottom: 15px;
-}
-
-#vencedor h2 {
-    color: #e65100;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.fireworks {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    background: transparent;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-.emoji {
-    position: absolute;
-    font-size: 30px;
-    animation: float 3s linear infinite;
-    user-select: none;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
+    <script src="script.js"></script>
+</body>
+</html>
