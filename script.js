@@ -5,20 +5,19 @@ const candidatos = [
 ];
 
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
-let votaçãoEncerrada = false;
+let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
 const voteSound = document.getElementById("voteSound");
 const music = document.getElementById("victoryMusic");
 const listaCandidatos = document.getElementById("listaCandidatos");
-const vencedorDiv = document.getElementById("vencedor");
 
-// Inicializa votos caso seja o primeiro acesso
+// Inicializa os votos caso seja o primeiro acesso
 candidatos.forEach(cand => {
     if (!(cand.nome in votos)) votos[cand.nome] = 0;
     
     const div = document.createElement("div");
     div.className = "candidato";
     div.innerHTML = `
-        <input type="radio" name="candidato" value="${cand.nome}" id="${cand.nome}">
+        <input type="radio" name="candidato" value="${cand.nome}" id="${cand.nome}" ${votacaoEncerrada ? "disabled" : ""}>
         <label for="${cand.nome}">
             <img src="${cand.imagem}" alt="${cand.nome}">
             ${cand.nome}
@@ -27,8 +26,10 @@ candidatos.forEach(cand => {
     listaCandidatos.appendChild(div);
 });
 
+document.querySelector("button[onclick='confirmVote()']").disabled = votacaoEncerrada;
+
 function confirmVote() {
-    if (votaçãoEncerrada) {
+    if (votacaoEncerrada) {
         alert('A votação foi encerrada, não é possível votar mais.');
         return;
     }
@@ -49,57 +50,35 @@ function confirmVote() {
 }
 
 function showWinner() {
-    let vencedor = Object.keys(votos).reduce((a, b) => votos[a] > votos[b] ? a : b);
-    let max = votos[vencedor];
-
-    if (max === 0) {
+    if (Object.values(votos).every(v => v === 0)) {
         alert("Nenhum voto registrado ainda.");
         return;
     }
+    
+    let maxVotos = Math.max(...Object.values(votos));
+    let vencedores = Object.keys(votos).filter(candidato => votos[candidato] === maxVotos);
 
-    localStorage.setItem('vencedor', vencedor);
+    localStorage.setItem('vencedor', JSON.stringify(vencedores));
     localStorage.setItem('votos', JSON.stringify(votos));
-    window.location.href = "resultado.html"; // Redireciona para a página de resultado
+    window.location.href = "resultado.html";
 }
 
 function endVote() {
-    if (votaçãoEncerrada) {
+    if (votacaoEncerrada) {
         alert('A votação já foi encerrada.');
         return;
     }
     
-    votaçãoEncerrada = true;
+    votacaoEncerrada = true;
+    localStorage.setItem('votacaoEncerrada', JSON.stringify(true));
     alert('A votação foi encerrada. O resultado será mostrado em breve.');
     document.querySelectorAll("input[type='radio']").forEach(input => input.disabled = true);
     document.querySelector("button[onclick='confirmVote()']").disabled = true;
 }
 
-function startCelebration() {
-    const fireworks = document.getElementById('fireworks');
-    fireworks.innerHTML = "";
-
-    for (let i = 0; i < 20; i++) {
-        const emoji = document.createElement("div");
-        emoji.className = "emoji";
-        emoji.style.left = Math.random() * 100 + "vw";
-        emoji.style.top = "-50px";
-        emoji.textContent = ["🎉", "🎊", "👏", "🎈", "🥳"][Math.floor(Math.random() * 5)];
-        emoji.style.fontSize = `${20 + Math.random() * 30}px`;
-        emoji.style.animationDuration = `${2 + Math.random() * 3}s`;
-        fireworks.appendChild(emoji);
-    }
-
-    music.currentTime = 0;
-    music.play().catch(() => {});
-
-    setTimeout(() => {
-        fireworks.innerHTML = "";
-        music.pause();
-    }, 6000);
-}
-
 function resetVote() {
     localStorage.removeItem('votos');
+    localStorage.removeItem('votacaoEncerrada');
     localStorage.removeItem('vencedor');
     location.reload();
 }
