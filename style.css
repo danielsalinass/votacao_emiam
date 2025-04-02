@@ -1,52 +1,91 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
     color: white;
-    margin: 0;
-    padding: 20px;
+    margin: 50px;
+    transition: background 0.5s, color 0.5s;
 }
 
 .container {
     max-width: 700px;
     margin: auto;
     padding: 30px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    border: 4px solid #0f3460;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
-h1, h2 {
-    color: #ffcc00;
+h1 {
+    color: #00d4ff;
+    font-size: 36px;
+    text-shadow: 0 0 10px cyan;
 }
 
-button {
-    background: #ff6600;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #ff4500;
+h2 {
+    color: #ff00ff;
+    font-size: 28px;
+    text-shadow: 0 0 10px magenta;
 }
 
 .candidato {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
     padding: 15px;
-    border-radius: 10px;
-    margin: 10px 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    transition: transform 0.3s;
 }
 
-.candidato img {
-    width: 60px;
-    height: 60px;
+.candidato:hover {
+    transform: scale(1.05);
+}
+
+.candidato input[type="radio"]:checked + label {
+    box-shadow: 0 0 15px cyan;
+    border: 2px solid cyan;
+}
+
+.chapa-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.chapa-info {
+    text-align: center;
+}
+
+.chapa-info img {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    border: 2px solid #ffcc00;
+    border: 3px solid cyan;
+    transition: transform 0.3s;
+}
+
+.chapa-info img:hover {
+    transform: rotate(10deg);
+}
+
+button {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #00d4ff, #ff00ff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s, background 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #ff00ff, #00d4ff);
 }
