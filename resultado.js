@@ -1,22 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const votos = JSON.parse(localStorage.getItem('votos')) || {};
-    const vencedores = JSON.parse(localStorage.getItem('vencedor')) || [];
-    const resultadoDiv = document.getElementById("resultado");
+    const votos = JSON.parse(localStorage.getItem('votos'));
+    const vencedorDiv = document.getElementById("vencedor");
 
-    if (vencedores.length > 0) {
-        resultadoDiv.innerHTML = `<h2>🎉 Vencedores: ${vencedores.join(", ")}</h2>`;
-        startFireworks();
-        renderChart(votos);
+    // Verifica se existem votos armazenados
+    if (!votos || Object.values(votos).every(v => v === 0)) {
+        vencedorDiv.innerHTML = "<h2>❌ Nenhum voto registrado.</h2>";
+        return;
+    }
+
+    // Determinar o(s) vencedor(es)
+    const maxVotos = Math.max(...Object.values(votos));
+    const vencedores = Object.keys(votos).filter(chapa => votos[chapa] === maxVotos);
+
+    // Exibir resultado formatado corretamente
+    if (vencedores.length === 1) {
+        vencedorDiv.innerHTML = `<h2>🎉 A chapa vencedora é <strong>${vencedores[0]}</strong> com ${maxVotos} votos!</h2>`;
     } else {
-        resultadoDiv.innerHTML = "<h2>❌ Nenhum vencedor definido.</h2>";
+        vencedorDiv.innerHTML = `<h2>⚖️ Houve um empate entre as chapas <strong>${vencedores.join(" e ")}</strong> com ${maxVotos} votos cada.</h2>`;
     }
 
-    let votosHTML = "<h3>📊 Total de votos:</h3><ul>";
-    for (let chapa in votos) {
-        votosHTML += `<li><strong>${chapa}:</strong> ${votos[chapa]} votos</li>`;
-    }
-    votosHTML += "</ul>";
-    resultadoDiv.innerHTML += votosHTML;
+    // Exibir gráfico
+    renderChart(votos);
 });
 
 function renderChart(votos) {
@@ -28,15 +32,22 @@ function renderChart(votos) {
             datasets: [{
                 label: 'Quantidade de Votos',
                 data: Object.values(votos),
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
                 borderColor: '#ffffff',
                 borderWidth: 1
             }]
         },
-        options: { responsive: true }
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
+            }
+        }
     });
-}
-
-function startFireworks() {
-    document.body.innerHTML += `<div class="fireworks">🎆🎇✨</div>`;
 }
