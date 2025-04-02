@@ -43,6 +43,20 @@ h2 {
     margin-bottom: 15px;
 }
 
+/* Frase "Vote consciente!" */
+.mensagem-voto {
+    font-size: 18px;
+    color: #ffce56;
+    font-weight: bold;
+    margin-bottom: 25px; 
+}
+
+/* Texto "Escolha sua chapa" */
+.escolha-chapa {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
 /* Lista das chapas */
 .lista-chapas {
     display: flex;
@@ -84,7 +98,24 @@ h2 {
     border-radius: 50%;
 }
 
-/* Botões */
+/* Botão "Confirmar Voto" */
+.botao-confirmar {
+    display: block;
+    margin: 30px auto; 
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.botao-confirmar:hover {
+    background: #0056b3;
+}
+
+/* Botões de ação */
 .botoes {
     display: flex;
     justify-content: center;
