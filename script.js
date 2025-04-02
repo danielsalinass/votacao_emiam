@@ -6,16 +6,11 @@ const chapas = [
 
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
 let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
-
 const listaCandidatos = document.getElementById("listaCandidatos");
-const body = document.body;
 
-// Caminho correto para os áudios hospedados no GitHub Pages
-const voteSound = new Audio("https://danielsalinass.github.io/votacao_emiam/urna.mp3");
-const errorSound = new Audio("https://danielsalinass.github.io/votacao_emiam/error.mp3");
-const winnerSound = new Audio("https://danielsalinass.github.io/votacao_emiam/winner.mp3");
+// Áudio da urna eletrônica
+const voteSound = new Audio("urna.mp3");
 
-// Gerar lista de chapas dinamicamente
 chapas.forEach(chapa => {
     if (!(chapa.nome in votos)) votos[chapa.nome] = 0;
 
@@ -51,19 +46,14 @@ function confirmVote() {
             votos[selected.value]++;
             localStorage.setItem('votos', JSON.stringify(votos));
 
-            // **Tocar o som da urna eletrônica**
-            voteSound.currentTime = 0;
             voteSound.play();
-
             alert(`✅ Voto confirmado para ${selected.value}!`);
 
-            // **Remover seleção após votar**
             setTimeout(() => {
                 selected.checked = false;
             }, 200);
         }
     } else {
-        errorSound.play();
         alert('⚠️ Selecione uma chapa antes de votar.');
     }
 }
