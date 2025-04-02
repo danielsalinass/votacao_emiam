@@ -36,7 +36,6 @@ chapas.forEach(chapa => {
                 </div>
             </div>
             <p><strong>${chapa.nome}</strong></p>
-            <p class="contador-votos">Votos: <span id="contagem-${chapa.nome}">${votos[chapa.nome]}</span></p>
         </label>
     `;
     listaCandidatos.appendChild(div);
@@ -54,14 +53,6 @@ function confirmVote() {
         if (confirmation) {
             votos[selected.value]++;
             localStorage.setItem('votos', JSON.stringify(votos));
-            document.getElementById(`contagem-${selected.value}`).innerText = votos[selected.value];
-
-            // Efeito visual no contador de votos
-            const contador = document.getElementById(`contagem-${selected.value}`);
-            contador.style.transform = "scale(1.2)";
-            setTimeout(() => {
-                contador.style.transform = "scale(1)";
-            }, 500);
 
             // **Tocar o som da urna eletrônica**
             voteSound.currentTime = 0;  // Reinicia o som caso já tenha sido tocado antes
