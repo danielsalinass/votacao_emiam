@@ -4,7 +4,6 @@ const chapas = [
     { nome: "Chapa 3", representante: "Pedro", vice: "Julia", imagemRep: "pedro.png", imagemVice: "julia.png" }
 ];
 
-// Carregar votos do localStorage
 let votos = JSON.parse(localStorage.getItem('votos')) || {};
 let votacaoEncerrada = JSON.parse(localStorage.getItem('votacaoEncerrada')) || false;
 
@@ -67,30 +66,4 @@ function confirmVote() {
         errorSound.play();
         alert('⚠️ Selecione uma chapa antes de votar.');
     }
-}
-
-function showWinner() {
-    let maxVotos = Math.max(...Object.values(votos));
-    let vencedores = Object.keys(votos).filter(chapa => votos[chapa] === maxVotos);
-    localStorage.setItem('vencedor', JSON.stringify(vencedores));
-
-    // **Tocar som ao exibir vencedor**
-    winnerSound.play();
-
-    window.location.href = "resultado.html";
-}
-
-function endVote() {
-    votacaoEncerrada = true;
-    localStorage.setItem('votacaoEncerrada', JSON.stringify(votacaoEncerrada));
-    alert('🔒 A votação foi encerrada.');
-
-    // **Ativar modo escuro ao encerrar a votação**
-    body.style.background = "black";
-    body.style.color = "cyan";
-}
-
-function resetVote() {
-    localStorage.clear();
-    location.reload();
 }
