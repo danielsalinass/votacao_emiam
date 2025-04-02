@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const votos = JSON.parse(localStorage.getItem('votos'));
+    const votos = JSON.parse(localStorage.getItem('votos')) || {};
+    const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
     const vencedorDiv = document.getElementById("vencedor");
     const imagemVencedorDiv = document.getElementById("imagemVencedor");
+    const listaVotantes = document.getElementById("listaVotantes");
 
     // Dados das chapas com imagens
     const chapas = [
@@ -41,13 +43,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Exibir lista de votantes de forma elegante
+    if (votantes.length > 0) {
+        listaVotantes.innerHTML = votantes.map(nome => `<li class="votante-item">✔️ ${nome}</li>`).join("\n");
+    } else {
+        listaVotantes.innerHTML = "<li>Nenhum voto registrado ainda.</li>";
+    }
+
     // Exibir gráfico
     renderChart(votos);
 });
 
 function renderChart(votos) {
     const ctx = document.getElementById('graficoVotos').getContext('2d');
-    
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -55,36 +63,32 @@ function renderChart(votos) {
             datasets: [{
                 label: 'Quantidade de Votos',
                 data: Object.values(votos),
-                backgroundColor: ['#FF5733', '#3498DB', '#2ECC71'], // Cores vibrantes
-                borderColor: '#111111', 
+                backgroundColor: ['#FF5733', '#3498DB', '#2ECC71'],
+                borderColor: '#111111',
                 borderWidth: 2,
-                borderRadius: 5, // Cantos arredondados nas barras
+                borderRadius: 5,
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false }, // Remove legenda redundante
-                tooltip: { enabled: true } // Mantém os tooltips ativos
+                legend: { display: false },
+                tooltip: { enabled: true }
             },
             scales: {
                 x: {
-                    ticks: { color: '#333', font: { size: 14 } }, // Personaliza rótulos do eixo X
+                    ticks: { color: '#333', font: { size: 14 } },
                 },
                 y: {
                     beginAtZero: true,
                     ticks: { stepSize: 1, color: '#333', font: { size: 14 } },
-                    grid: { color: "rgba(0, 0, 0, 0.1)" } // Suaviza as linhas do gráfico
+                    grid: { color: "rgba(0, 0, 0, 0.1)" }
                 }
             },
             animation: {
-                duration: 1000, // Animação mais fluida
+                duration: 1000,
                 easing: 'easeInOutQuad'
             }
         }
     });
 }
-
-const votos = JSON.parse(localStorage.getItem('votos')) || {};
-const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
-document.getElementById("listaVotantes").innerHTML = votantes.map(nome => `<li>${nome} ✔️</li>`).join("");
