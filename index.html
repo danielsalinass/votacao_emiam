@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Votação Representante de Turma</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Escola Municipal Ignácio de Andrade Melo</h1>
+    <h2>Votação para Representante de Turma</h2>
+    <div class="container">
+        <p>Escolha seu candidato:</p>
+        <form id="voteForm">
+            <div id="listaCandidatos"></div>
+            <button type="button" onclick="confirmVote()">✅ Confirmar Voto</button>
+        </form>
+        <button type="button" onclick="showWinner()">🏆 Mostrar Resultado</button>
+        <div id="resultados">
+            <h3>Resultados:</h3>
+            <ul id="listaResultados" style="list-style: none; padding: 0;"></ul>
+        </div>
+        <div id="vencedor"></div>
+    </div>
+
+    <div class="fireworks" id="fireworks"></div>
+
+    <audio id="voteSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_49ab2502b2.mp3?filename=brazilian-electronic-voting-sound-108212.mp3"></audio>
+    <audio id="victoryMusic" src="https://cdn.pixabay.com/audio/2022/03/31/audio_a1ba4bb4aa.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
