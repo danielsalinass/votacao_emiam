@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function renderChart(votos) {
     const ctx = document.getElementById('graficoVotos').getContext('2d');
+    
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -54,48 +55,36 @@ function renderChart(votos) {
             datasets: [{
                 label: 'Quantidade de Votos',
                 data: Object.values(votos),
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
-                borderColor: '#ffffff',
-                borderWidth: 1
+                backgroundColor: ['#FF5733', '#3498DB', '#2ECC71'], // Cores vibrantes
+                borderColor: '#111111', 
+                borderWidth: 2,
+                borderRadius: 5, // Cantos arredondados nas barras
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false }
+                legend: { display: false }, // Remove legenda redundante
+                tooltip: { enabled: true } // Mantém os tooltips ativos
             },
             scales: {
+                x: {
+                    ticks: { color: '#333', font: { size: 14 } }, // Personaliza rótulos do eixo X
+                },
                 y: {
                     beginAtZero: true,
-                    stepSize: 1
+                    ticks: { stepSize: 1, color: '#333', font: { size: 14 } },
+                    grid: { color: "rgba(0, 0, 0, 0.1)" } // Suaviza as linhas do gráfico
                 }
+            },
+            animation: {
+                duration: 1000, // Animação mais fluida
+                easing: 'easeInOutQuad'
             }
         }
     });
 }
 
-datasets: [{
-    label: 'Quantidade de Votos',
-    data: Object.values(votos),
-    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
-    borderColor: '#ffffff',
-    borderWidth: 1
-}]
-
 const votos = JSON.parse(localStorage.getItem('votos')) || {};
 const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
 document.getElementById("listaVotantes").innerHTML = votantes.map(nome => `<li>${nome} ✔️</li>`).join("");
-
-const ctx = document.getElementById('graficoVotos').getContext('2d');
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: Object.keys(votos),
-        datasets: [{
-            label: 'Votos',
-            data: Object.values(votos),
-            backgroundColor: ['red', 'blue', 'green']
-        }]
-    }
-});
-
