@@ -73,3 +73,21 @@ function renderChart(votos) {
         }
     });
 }
+
+const votos = JSON.parse(localStorage.getItem('votos')) || {};
+const votantes = JSON.parse(localStorage.getItem('votantes')) || [];
+document.getElementById("listaVotantes").innerHTML = votantes.map(nome => `<li>${nome} ✔️</li>`).join("");
+
+const ctx = document.getElementById('graficoVotos').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: Object.keys(votos),
+        datasets: [{
+            label: 'Votos',
+            data: Object.values(votos),
+            backgroundColor: ['red', 'blue', 'green']
+        }]
+    }
+});
+
