@@ -69,3 +69,14 @@ function resetVote() {
     alert("🔄 A votação foi reiniciada!");
     location.reload();
 }
+
+function verificarSenha() {
+    const senhaCorreta = "1234"; // Defina a senha correta 
+    const senhaDigitada = prompt("Digite a senha para acessar o resultado:");
+
+    if (senhaDigitada === senhaCorreta) {
+        window.location.href = "resultado.html"; // Redireciona para a página de resultados
+    } else if (senhaDigitada !== null) {
+        alert("❌ Senha incorreta! Acesso negado.");
+    }
+}
