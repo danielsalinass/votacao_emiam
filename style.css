@@ -30,6 +30,14 @@ body {
 h1 { font-size: 36px; color: #00c3ff; }
 h2 { font-size: 24px; color: #bbb; }
 
+/* Mensagem de incentivo ao voto consciente */
+.mensagem-voto {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f8d210;
+    margin-bottom: 15px;
+}
+
 /* Lista das chapas */
 .lista-chapas {
     display: flex;
@@ -54,10 +62,11 @@ h2 { font-size: 24px; color: #bbb; }
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
+    flex-wrap: wrap;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
     background: #28a745;
     color: white;
@@ -71,18 +80,14 @@ button:hover {
     background: #218838;
 }
 
-/* Espaçamento no botão "Confirmar Voto" */
+/* Botão "Confirmar Voto" */
 .botao-confirmar {
-    margin-top: 20px; /* Adiciona espaçamento */
-    display: block; /* Garante que fique abaixo das chapas */
-}
-
-/* Mensagem de incentivo ao voto consciente */
-.mensagem-voto {
-    font-size: 18px;
-    font-weight: bold;
-    color: #f8d210;
-    margin-bottom: 15px;
+    margin-top: 30px; /* Espaçamento maior para evitar proximidade com outras opções */
+    display: block;
+    width: 100%;
+    max-width: 250px; /* Define um tamanho fixo sem esticar demais */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Resultado */
@@ -101,6 +106,7 @@ canvas {
     border-radius: 10px;
 }
 
+/* Imagem do vencedor */
 .imagem-vencedor-container {
     display: flex;
     justify-content: center;
@@ -122,28 +128,6 @@ canvas {
     transform: scale(1.1);
 }
 
-/* Botões no resultado */
-.botoes {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #218838;
-}
-
 /* Responsividade */
 @media (max-width: 600px) {
     .container {
@@ -161,5 +145,9 @@ button:hover {
 
     button {
         width: 100%;
+    }
+
+    .botao-confirmar {
+        max-width: 100%; /* Ocupa toda a largura no mobile */
     }
 }
