@@ -54,6 +54,10 @@ function confirmVote() {
         localStorage.setItem('votos', JSON.stringify(votos));
         localStorage.setItem('votantes', JSON.stringify(votantes));
 
+        // Toca o som da urna
+        const urnaSound = new Audio('urna.mp3');
+        urnaSound.play();
+
         // Mensagem de sucesso e reset do formulário
         Swal.fire('✅ Voto confirmado!', '', 'success').then(() => {
             document.getElementById("voterName").value = ""; // Apaga o nome
