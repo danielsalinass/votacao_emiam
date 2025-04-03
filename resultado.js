@@ -49,18 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Exibir tabela de votantes centralizada
     listaVotantesTabela.innerHTML = `
         <div style="display: flex; justify-content: center;">
-            <table class="tabela-votantes">
+            <table class="tabela-votantes" style="margin: auto; border-collapse: collapse; width: 50%; text-align: center;">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Status</th>
+                        <th style="border: 1px solid black; padding: 10px;">Nome</th>
+                        <th style="border: 1px solid black; padding: 10px;">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${votantes.map(nome => `
                         <tr>
-                            <td>${nome}</td>
-                            <td>✔️</td>
+                            <td style="border: 1px solid black; padding: 10px;">${nome}</td>
+                            <td style="border: 1px solid black; padding: 10px;">✔️</td>
                         </tr>
                     `).join("")}
                 </tbody>
