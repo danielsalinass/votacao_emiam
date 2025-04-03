@@ -46,24 +46,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // Exibir gráfico
     renderChart(votos);
 
-    // Exibir tabela de votantes
+    // Exibir tabela de votantes centralizada
     listaVotantesTabela.innerHTML = `
-        <table class="tabela-votantes">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${votantes.map(nome => `
+        <div style="display: flex; justify-content: center;">
+            <table class="tabela-votantes">
+                <thead>
                     <tr>
-                        <td>${nome}</td>
-                        <td>✔️</td>
+                        <th>Nome</th>
+                        <th>Status</th>
                     </tr>
-                `).join("")}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    ${votantes.map(nome => `
+                        <tr>
+                            <td>${nome}</td>
+                            <td>✔️</td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        </div>
     `;
 });
 
@@ -76,30 +78,30 @@ function renderChart(votos) {
             datasets: [{
                 label: 'Quantidade de Votos',
                 data: Object.values(votos),
-                backgroundColor: ['#FF5733', '#3498DB', '#2ECC71'], // 
+                backgroundColor: ['#FF5733', '#3498DB', '#2ECC71'],
                 borderColor: '#111111',
                 borderWidth: 2,
-                borderRadius: 5, // 
+                borderRadius: 5,
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false }, // 
-                tooltip: { enabled: true } // 
+                legend: { display: false },
+                tooltip: { enabled: true }
             },
             scales: {
                 x: {
-                    ticks: { color: '#333', font: { size: 14 } }, 
+                    ticks: { color: '#333', font: { size: 14 } },
                 },
                 y: {
                     beginAtZero: true,
                     ticks: { stepSize: 1, color: '#333', font: { size: 14 } },
-                    grid: { color: "rgba(0, 0, 0, 0.1)" } 
+                    grid: { color: "rgba(0, 0, 0, 0.1)" }
                 }
             },
             animation: {
-                duration: 1000, 
+                duration: 1000,
                 easing: 'easeInOutQuad'
             }
         }
